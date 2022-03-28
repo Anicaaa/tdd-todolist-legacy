@@ -1,41 +1,49 @@
 class TodoList {
-  constructor () {
-    this.id = 0
-    this.items = []
+  constructor() {
+    this.id = 0;
+    this.items = [];
   }
 
-  create (str) {
-    this.id++
-    const item = { id: this.id, text: str, status: 'incomplete' }
-    this.items.push(item)
-    return item
+  create(str) {
+    this.id++;
+    const item = { id: this.id, text: str, status: "incomplete" };
+    this.items.push(item);
+    return item;
   }
 
-  showAll () {
-    return this.items
+  showAll() {
+    let newArray = [];
+    for (let i = 0; i < this.items.length; i++) {
+      const currentItem = this.items[i];
+      if (currentItem.text > 20) {
+        currentItem.text = currentItem.text.substring(0, 20) + "...";
+      }
+      newArray.push(currentItem);
+    }
+    return newArray;
   }
 
-  setComplete (id) {
-    const item = this.findBy(id)
-    item.status = 'complete'
-    return item
+  setComplete(id) {
+    const item = this.findBy(id);
+    item.status = "complete";
+    return item;
   }
 
-  getByStatus (status) {
-    return this.items.filter(item => item.status === status)
+  getByStatus(status) {
+    return this.items.filter((item) => item.status === status);
   }
 
-  findBy (id) {
-    const item = this.items.find(item => item.id === id)
-    if (item === undefined) throw new Error('Item not found')
-    return item
+  findBy(id) {
+    const item = this.items.find((item) => item.id === id);
+    if (item === undefined) throw new Error("Item not found");
+    return item;
   }
 
-  deleteBy (id) {
-    const item = this.findBy(id)
-    const index = this.items.indexOf(item)
-    return this.items.splice(index, 1)[0]
+  deleteBy(id) {
+    const item = this.findBy(id);
+    const index = this.items.indexOf(item);
+    return this.items.splice(index, 1)[0];
   }
 }
 
-module.exports = TodoList
+module.exports = TodoList;
